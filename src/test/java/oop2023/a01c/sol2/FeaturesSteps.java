@@ -60,4 +60,38 @@ public class FeaturesSteps {
     public void theRectangleIsFilledWith(final int nCells, final String mark) {
         this.checkIfRectangleCellsAreMarked(nCells, mark);
     }
+
+    @And("the identified rectangle is filled with {int} {string}")
+    public void theIdentifiedRectangleIsFilledWith(final int nCells, final String mark) {
+        this.iClickAnyCell();
+        this.theRectangleIsFilledWith(nCells, mark);
+    }
+
+    @Then("the rectangle is extended by one cell in all directions, resulting in {int} cells marked with {string}")
+    public void theRectangleIsExtendedByOneCellInAllDirectionsResultingInCellsMarkedWith(final int nCells,
+                                                                                         final String mark) {
+        this.checkIfRectangleCellsAreMarked(nCells, mark);
+    }
+
+    @And("I click any cell again")
+    public void iClickAnyCellAgain() {
+        this.iClickAnyCell();
+    }
+
+    @Then("the rectangle is extended by two cells in all directions, resulting in {int} cells marked with {string}")
+    public void theRectangleIsExtendedByTwoCellsInAllDirectionsResultingInCellsMarkedWith(final int nCells,
+                                                                                          final String mark) {
+        this.checkIfRectangleCellsAreMarked(nCells, mark);
+    }
+
+    @Then("the grid is filled")
+    public void theGridIsFilled() {
+        assertTrue(this.gui.getGrid().values().stream()
+                .allMatch(b -> !b.getText().isEmpty() && !b.getText().equals(" ")));
+    }
+
+    @And("the GUI closes")
+    public void theGUICloses() {
+        assertFalse(this.gui.isDisplayable());
+    }
 }
