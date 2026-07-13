@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.util.*;
 
 public class FeaturesSteps {
+    private int size;
     private GUI gui;
+    private final Random random = new Random();
 
     private void clickCell(final int x, final int y) {
         this.gui.getGrid().get(new Position(x, y)).doClick();
@@ -18,8 +20,13 @@ public class FeaturesSteps {
         return this.gui.getGrid().get(new Position(x, y)).getText();
     }
 
+    private void checkIfRectangleCellsAreMarked(final int nCells, final String mark) {
+        assertEquals(this.gui.getGrid().values().stream().filter(b -> b.getText().equals(mark)).count(), nCells);
+    }
+
     @Given("I have a square grid of size {int}")
     public void iHaveASquareGridOfSize(final int size) {
+        this.size = size;
         this.gui = new GUI(size);
     }
 
@@ -42,5 +49,15 @@ public class FeaturesSteps {
     public void iHaveAGridWithTheCellAtMarkedWith(final int x, final int y, final String mark) {
         this.clickCell(x, y);
         this.theCellAtIsMarkedWith(x, y, mark);
+    }
+
+    @When("I click any cell")
+    public void iClickAnyCell() {
+        this.clickCell(this.random.nextInt(size), this.random.nextInt(size));
+    }
+
+    @Then("the rectangle is filled with {int} {string}")
+    public void theRectangleIsFilledWith(final int nCells, final String mark) {
+        this.checkIfRectangleCellsAreMarked(nCells, mark);
     }
 }
