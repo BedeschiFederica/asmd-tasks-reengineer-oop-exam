@@ -30,7 +30,7 @@ public class GUI extends JFrame {
                         .orElse(" "));
             }
             if (this.logic.isOver()){
-                System.exit(0);
+                this.dispose();
             }
         };
                 
@@ -44,5 +44,9 @@ public class GUI extends JFrame {
         }
         this.setVisible(true);
     }
-    
+
+    Map<Position, JButton> getGrid() {
+        return this.cells.entrySet().stream()
+                .collect(HashMap::new, (grid,entry) -> grid.put(entry.getValue(), entry.getKey()), HashMap::putAll);
+    }
 }
