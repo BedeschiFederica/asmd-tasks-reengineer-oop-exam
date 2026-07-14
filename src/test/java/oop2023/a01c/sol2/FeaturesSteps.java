@@ -32,7 +32,7 @@ public class FeaturesSteps {
 
     @Given("I have an empty grid")
     public void iHaveAnEmptyGrid() {
-        assertTrue(this.gui.getGrid().values().stream().allMatch(b -> b.getText().isEmpty()));
+        assertTrue(this.gui.getGrid().values().stream().allMatch(b -> b.getText().isBlank()));
     }
 
     @When("I click the cell at [{int}, {int}]")
@@ -86,8 +86,7 @@ public class FeaturesSteps {
 
     @Then("the grid is filled")
     public void theGridIsFilled() {
-        assertTrue(this.gui.getGrid().values().stream()
-                .allMatch(b -> !b.getText().isEmpty() && !b.getText().equals(" ")));
+        assertTrue(this.gui.getGrid().values().stream().noneMatch(b -> b.getText().isBlank()));
     }
 
     @And("the GUI closes")
