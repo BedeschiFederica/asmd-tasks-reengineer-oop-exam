@@ -10,18 +10,31 @@ public class GUI extends JFrame {
     private static final long serialVersionUID = -6218820567019985015L;
     private final Map<JButton, Position> cells = new HashMap<>();
     private final Logic logic;
-    
-    public GUI(int size) {
+    private final Logger logger;
+
+    public GUI(final int size) {
+        this.logic = new LogicImpl(size);
+        this.logger = new ConsoleLogger();
+        this.init(size);
+    }
+
+    GUI(final int size, final Logic logic, final Logger logger) {
+        this.logic = logic;
+        this.logger = logger;
+        this.init(size);
+    }
+
+    private void init(final int size) {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setSize(70*size, 70*size);
-        this.logic = new LogicImpl(size);
-        
+
         JPanel panel = new JPanel(new GridLayout(size,size));
         this.getContentPane().add(panel);
         
         ActionListener al = e -> {
             var jb = (JButton)e.getSource();
-            this.logic.hit(this.cells.get(jb));
+            this.logger.cellClicked(this.cells.get(jb));
+            final Optional<Integer> edgeNumber = this.logic.hit(this.cells.get(jb));
             for (var entry: this.cells.entrySet()){
                 entry.getKey().setText(
                     this.logic
@@ -30,7 +43,10 @@ public class GUI extends JFrame {
                         .orElse(" "));
             }
             if (this.logic.isOver()){
+                this.logger.gameEnded();
                 this.dispose();
+            } else {
+                edgeNumber.ifPresentOrElse(this.logger::edgeMarked, this.logger::rectangleExpanded);
             }
         };
                 
@@ -43,6 +59,7 @@ public class GUI extends JFrame {
             }
         }
         this.setVisible(true);
+        this.logger.gameStarted();
     }
 
     Map<Position, JButton> getGrid() {
