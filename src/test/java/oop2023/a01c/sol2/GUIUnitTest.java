@@ -65,7 +65,7 @@ public class GUIUnitTest {
         this.click(SECOND_EDGE);
         verify(this.logger, times(1)).edgeMarked(SECOND_VALUE);
         this.click(SOME_POSITION);
-        verify(this.logger, times(1)).rectangleExpanded();
+        verify(this.logger, times(1)).rectangleUpdated();
     }
 
     @Test

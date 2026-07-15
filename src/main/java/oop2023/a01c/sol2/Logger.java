@@ -8,7 +8,7 @@ public interface Logger {
 
     void edgeMarked(int edgeNumber);
 
-    void rectangleExpanded();
+    void rectangleUpdated();
 
     void gameEnded();
 }

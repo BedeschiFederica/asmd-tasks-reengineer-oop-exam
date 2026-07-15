@@ -46,7 +46,7 @@ public class GUI extends JFrame {
                 this.logger.gameEnded();
                 this.dispose();
             } else {
-                edgeNumber.ifPresentOrElse(this.logger::edgeMarked, this.logger::rectangleExpanded);
+                edgeNumber.ifPresentOrElse(this.logger::edgeMarked, this.logger::rectangleUpdated);
             }
         };
                 

@@ -43,10 +43,10 @@ public class ConsoleLoggerTest {
     }
 
     @Test
-    @DisplayName("rectangleExpanded prints the expected message")
-    public void testRectangleExpandedPrintsExpectedMessage() {
-        this.logger.rectangleExpanded();
-        assertEquals("Rectangle expanded", this.output());
+    @DisplayName("rectangleUpdated prints the expected message")
+    public void testRectangleUpdatedPrintsExpectedMessage() {
+        this.logger.rectangleUpdated();
+        assertEquals("Rectangle updated", this.output());
     }
 
     @Test

@@ -18,8 +18,8 @@ public class ConsoleLogger implements Logger {
     }
 
     @Override
-    public void rectangleExpanded() {
-        System.out.println("Rectangle expanded");
+    public void rectangleUpdated() {
+        System.out.println("Rectangle updated");
     }
 
     @Override
